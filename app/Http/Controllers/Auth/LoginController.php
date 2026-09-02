@@ -14,6 +14,33 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    public function createRegister(){
+        return view('auth.register');
+    }
+
+    public function register(Request $request){
+        
+        $validate = $request->validate([
+            'name'=> ['required', 'string','max:255'],
+            'email'=> ['required', 'string', 'email', 'unique:users, email'],
+            'pass'=> ['required', 'string', 'confirmed', 'min:8']
+        ]);
+
+        User::create([
+            'name'=> $validated['name'],
+            'emai'=> $validated['email'],
+            'password'=> Hash::make([$validate['password']]),
+        ]);
+
+        return redirect()
+            -> route('login')
+            -> with(
+                'success',
+                'Register success'
+            );
+
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $credentials = $request->validate([

@@ -21,12 +21,22 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [LoginController::class, 'store'])
         ->middleware('throttle:login')
         ->name('login.store');
+
+        Route::get('/register',
+            [LoginController::class, 'createRegister']
+        )->name('register');
+
+        Route::post('/register',
+            [LoginController::class, 'register']
+        )->name('register.store');
 });
+
+
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', function () {
-        return view('Dashboard.dashboard');
+        return view('dashboard.dashboard');
     })->name('dashboard');
 
     Route::post('/logout', [LoginController::class, 'destroy'])

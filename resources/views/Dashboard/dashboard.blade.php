@@ -8,10 +8,10 @@
 </head>
     <body>
         <main class="dashboard">
-            <h1>Bienvenido, {{ auth()->user()->name }}</h1>
+            <h1>Bienvenido, {{auth()->user()->name}}</h1>
             <p>El acceso a esta página requiere autenticación.</p>
 
-            <form method="POST" action="{{ route('logout') }}">
+            <form method="POST" action="{{ route('logout')}}">
                 @csrf
                 <button type="submit">Cerrar sesión</button>
             </form>
